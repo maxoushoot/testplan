@@ -13,7 +13,6 @@ export class WorksController {
 
   @Put(':id')
   updateWork(@Param('id') id: string, @Body() dto: UpdateWorkDto) {
-    const changedBy = 'system-user-id';
-    return this.worksService.updateWork(id, dto, changedBy);
+    return this.worksService.updateWork(id, dto);
   }
 }

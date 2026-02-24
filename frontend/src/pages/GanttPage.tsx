@@ -8,7 +8,7 @@ import { Work } from '../api/types';
 export default function GanttPage() {
   const [works, setWorks] = useState<Work[]>([]);
 
-  useEffect(() => { getWorks().then(setWorks); }, []);
+  useEffect(() => { getWorks().then(setWorks).catch(console.error); }, []);
 
   const tasks = useMemo<Task[]>(() => {
     return works.map((w) => ({
@@ -25,12 +25,17 @@ export default function GanttPage() {
   const onDateChange = async (task: Task) => {
     const work = works.find((w) => w.id === task.id);
     if (!work) return;
-    const updated = await updateWork(work.id, {
-      planned_start_date: task.start.toISOString(),
-      planned_end_date: task.end.toISOString(),
-      version: work.version
-    });
-    setWorks((prev) => prev.map((w) => (w.id === work.id ? updated : w)));
+
+    try {
+      const updated = await updateWork(work.id, {
+        planned_start_date: task.start.toISOString(),
+        planned_end_date: task.end.toISOString(),
+        version: work.version
+      });
+      setWorks((prev) => prev.map((w) => (w.id === work.id ? updated : w)));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

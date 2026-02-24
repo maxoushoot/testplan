@@ -9,10 +9,10 @@ export default function DashboardPage() {
   const [saturationCount, setSaturationCount] = useState(0);
 
   useEffect(() => {
-    getWorks().then(setWorks);
-    getSaturation(new Date().toISOString().slice(0, 10)).then((rows) => {
-      setSaturationCount(rows.filter((row) => row.status === 'HIGH').length);
-    });
+    getWorks().then(setWorks).catch(console.error);
+    getSaturation(new Date().toISOString().slice(0, 10))
+      .then((rows) => setSaturationCount(rows.filter((row) => row.status === 'HIGH').length))
+      .catch(console.error);
   }, []);
 
   const chartData = useMemo(() => {

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../common/prisma.service';
 
 @Injectable()
@@ -6,7 +6,14 @@ export class SaturationService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getSaturation(dateRaw: string) {
+    if (!dateRaw) {
+      throw new BadRequestException('date query param is required (YYYY-MM-DD)');
+    }
+
     const date = new Date(dateRaw);
+    if (Number.isNaN(date.getTime())) {
+      throw new BadRequestException('invalid date query param');
+    }
 
     const zones = await this.prisma.zone.findMany({
       include: {
