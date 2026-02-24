@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  PLANNER
+  VIEWER
+}
+
+enum PlanningStatus {
+  PLANNED
+  IN_PROGRESS
+  DONE
+  DELAYED
+  CANCELLED
+}
+
+model User {
+  id            String   @id @default(uuid()) @db.Uuid
+  email         String   @unique
+  password_hash String
+  role          UserRole
+  refresh_token String?
+  histories     WorkHistory[] @relation("ChangedBy")
+}
+
+model Building {
+  id    String @id @default(uuid()) @db.Uuid
+  name  String
+  zones Zone[]
+  works Work[]
+}
+
+model Zone {
+  id                  String @id @default(uuid()) @db.Uuid
+  building_id         String @db.Uuid
+  name                String
+  code                String @unique
+  max_works_per_day   Int
+  max_workers_per_day Int
+
+  building Building @relation(fields: [building_id], references: [id])
+  works    Work[]
+}
+
+model Work {
+  id                 String         @id @default(uuid()) @db.Uuid
+  permit_id          String         @unique
+  title              String
+  building_id        String         @db.Uuid
+  zone_id            String         @db.Uuid
+  company_id         String
+  risk_level         Int
+  workers_count      Int
+  permit_status      String
+  planned_start_date DateTime?
+  planned_end_date   DateTime?
+  planning_status    PlanningStatus
+  is_urgent          Boolean
+  version            Int            @default(1)
+
+  building Building      @relation(fields: [building_id], references: [id])
+  zone     Zone          @relation(fields: [zone_id], references: [id])
+  history  WorkHistory[]
+}
+
+model WorkHistory {
+  id         String   @id @default(uuid()) @db.Uuid
+  work_id    String   @db.Uuid
+  changed_by String   @db.Uuid
+  field      String
+  old_value  Json
+  new_value  Json
+  changed_at DateTime
+
+  work Work @relation(fields: [work_id], references: [id])
+  user User @relation("ChangedBy", fields: [changed_by], references: [id])
+}
