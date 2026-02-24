@@ -1,4 +1,5 @@
 import { IsBoolean, IsDateString, IsEnum, IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
+import { PlanningStatus } from '@prisma/client';
 
 export class UpdateWorkDto {
   @IsInt()
@@ -31,8 +32,8 @@ export class UpdateWorkDto {
   permit_status?: string;
 
   @IsOptional()
-  @IsEnum(['PLANNED', 'IN_PROGRESS', 'DONE', 'DELAYED', 'CANCELLED'])
-  planning_status?: 'PLANNED' | 'IN_PROGRESS' | 'DONE' | 'DELAYED' | 'CANCELLED';
+  @IsEnum(PlanningStatus)
+  planning_status?: PlanningStatus;
 
   @IsOptional()
   @IsBoolean()

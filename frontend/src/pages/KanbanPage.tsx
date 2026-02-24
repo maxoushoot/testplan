@@ -11,7 +11,7 @@ const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 export default function KanbanPage() {
   const [works, setWorks] = useState<Work[]>([]);
 
-  useEffect(() => { getWorks().then(setWorks); }, []);
+  useEffect(() => { getWorks().then(setWorks).catch(console.error); }, []);
 
   const columns = useMemo(() => {
     return weekdays.reduce<Record<string, Work[]>>((acc, day) => {

@@ -13,7 +13,7 @@ export default function MapPage() {
   const [zones, setZones] = useState<SaturationResponse[]>([]);
 
   useEffect(() => {
-    getSaturation(new Date().toISOString().slice(0, 10)).then(setZones);
+    getSaturation(new Date().toISOString().slice(0, 10)).then(setZones).catch(console.error);
   }, []);
 
   const zoneColors = useMemo(() => {

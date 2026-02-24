@@ -11,7 +11,7 @@ export class WorksService {
     return this.prisma.work.findMany({ include: { zone: true } });
   }
 
-  async updateWork(id: string, dto: UpdateWorkDto, changedBy: string) {
+  async updateWork(id: string, dto: UpdateWorkDto) {
     const existing = await this.prisma.work.findUnique({ where: { id } });
     if (!existing) throw new NotFoundException('Work not found');
     if (existing.version !== dto.version) throw new ConflictException('Version mismatch');
@@ -25,18 +25,6 @@ export class WorksService {
     };
 
     const updated = await this.prisma.work.update({ where: { id }, data: updateInput });
-
-    await this.prisma.workHistory.create({
-      data: {
-        work_id: id,
-        changed_by: changedBy,
-        field: 'work_update',
-        old_value: existing,
-        new_value: updated,
-        changed_at: new Date()
-      }
-    });
-
     return updated;
   }
 }
