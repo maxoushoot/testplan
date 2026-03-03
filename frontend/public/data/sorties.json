@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Marche douce au lever du soleil",
+    "date": "Samedi 14 septembre · 8h30",
+    "location": "Forêt de Sénart",
+    "level": "Accessible à tous",
+    "weather": "Prévoir une veste légère, fraîcheur matinale.",
+    "summary": "Un itinéraire ombragé pour relancer l'énergie avec des pauses respiration."
+  },
+  {
+    "title": "Parcours nature & souffle",
+    "date": "Mercredi 18 septembre · 18h15",
+    "location": "Bois de Vincennes",
+    "level": "Rythme modéré",
+    "weather": "Risque d'averses fines, chaussures imperméables conseillées.",
+    "summary": "Séance après le travail pour se reconnecter, marcher et relâcher les tensions."
+  },
+  {
+    "title": "Sortie conviviale du dimanche",
+    "date": "Dimanche 22 septembre · 9h45",
+    "location": "Parc de Sceaux",
+    "level": "Familles bienvenues",
+    "weather": "Soleil doux annoncé, prenez de l'eau et une casquette.",
+    "summary": "Un moment collectif et chaleureux avec une allure régulière et bienveillante."
+  }
+]

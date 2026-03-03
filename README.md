@@ -1,6 +1,7 @@
-# App de Planification des Travaux (MVP)
+# Ça marche avec Lety
 
-Structure:
-- `frontend/`: React + Vite + MUI + dnd-kit + recharts + gantt-task-react.
-- `backend/`: NestJS REST API + Prisma/PostgreSQL.
-- `backend/prisma/schema.prisma`: modèle de données demandé.
+Projet contenant :
+- `frontend/` : site vitrine immersif en thème forêt (Next.js + Tailwind, App Router).
+- `backend/` : ancien backend NestJS (non utilisé pour ce site vitrine statique).
+
+Consulter `frontend/README.md` pour le guide de personnalisation (photos, liens, textes, sorties).
